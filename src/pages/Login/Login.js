@@ -1,10 +1,11 @@
 import React from 'react';
-const Media = () => {
+
+const Login = () => {
     return (
         <div>
-            Media
+            
         </div>
     );
 };
 
-export default Media;
+export default Login;
