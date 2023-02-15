@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Post hub created by Md. Minhajur Rahman
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
