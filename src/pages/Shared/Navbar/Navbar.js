@@ -7,12 +7,13 @@ const Navbar = () => {
         <>
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/media'>Media</Link></li>
+            <li><Link to='/message'>Message</Link></li>
             <li><Link to='/about'>About</Link></li>
         </>
     const userAccount =
         <>
-            <li><Link>Signup</Link></li>
-            <li><Link>Login</Link></li>
+            <li><Link to='/register'>Sign Up</Link></li>
+            <li><Link to='/login'>Log in</Link></li>
             <li><Link>Logout</Link></li>
         </>
 
@@ -23,16 +24,16 @@ const Navbar = () => {
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
                         <CgMenuGridR className='text-xl'></CgMenuGridR>
                     </label>
-                    <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                    <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 font-semibold">
                         {
                             menu
                         }
                     </ul>
                 </div>
-                <Link className="btn btn-ghost normal-case text-xl font-bold">PostHub</Link>
+                <Link className="btn btn-ghost normal-case text-xl font-bold"><span className='text-slate-700'>Post</span><span className='text-indigo-500'>Hub</span></Link>
             </div>
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">
+                <ul className="menu menu-horizontal px-1 font-semibold">
                     {
                         menu
                     }
