@@ -10,6 +10,7 @@ const Register = () => {
         event.preventDefault();
         const form = event.target;
         const name = form.name.value;
+        const img = form.img.value;
         const email = form.email.value;
         const password = form.password.value;
 
@@ -23,12 +24,14 @@ const Register = () => {
         .then(result => {
             const user = result.user;
             const userInfo = {
-                displayName: name
+                displayName: name,
+                photoURL: img
             }
             updateUser(userInfo)
             .then(() => {})
             .catch(err => console.error(err))
             console.log(user);
+            form.reset();
         })
         .catch(err => 
             console.error(err));
@@ -57,6 +60,12 @@ const Register = () => {
                                     <span className="label-text">Name</span>
                                 </label>
                                 <input name='name' type="text" placeholder="Name" className="input input-bordered" required />
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Picture Url</span>
+                                </label>
+                                <input name='img' type="text" placeholder="Picture" className="input input-bordered" required />
                             </div>
                             <div className="form-control">
                                 <label className="label">

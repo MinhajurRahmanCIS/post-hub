@@ -17,6 +17,7 @@ const Login = () => {
         .then(result => {
             const user = result.user;
             console.log(user);
+            form.reset();
         })
         .catch(err => console.error(err));
     }
@@ -36,7 +37,7 @@ const Login = () => {
                 <div className="hero-content flex-col lg:flex-row-reverse gap-20">
                     <form onSubmit={handelLogin} className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                         <div className="card-body">
-                            <h1 className='text-4xl font-bold '>LogIn</h1>
+                            <h1 className='text-4xl font-bold '>Login</h1>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>

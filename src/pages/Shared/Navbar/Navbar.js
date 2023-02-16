@@ -13,16 +13,25 @@ const Navbar = () => {
     }
 
     const menu =
+    user?.uid ?
+
         <>
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/media'>Media</Link></li>
             <li><Link to='/message'>Message</Link></li>
             <li><Link to='/about'>About</Link></li>
         </>
+
+        :
+        <>
+        <li>
+            <Link to='/'>Home</Link></li>
+            <li><Link to='/media'>Media</Link></li>
+        </>
     const userAccount =
 
         user?.uid ? <>
-            <li><Link onClick={handelLogout}>Logout</Link></li>
+            <li><button className='font-bold btn btn-primary' onClick={handelLogout}>Logout</button></li>
         </>
             :
             <>
@@ -54,9 +63,18 @@ const Navbar = () => {
             </div>
             <div className="navbar-end">
                 <div className="dropdown dropdown-end">
-                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                        <div className="w-10 rounded-full">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSegCgK5aWTTuv_K5TPd10DcJxphcBTBct6R170EamgcCOcYs7LGKVy7ybRc-MCwOcHljg&usqp=CAU" alt='' />
+                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar tooltip tooltip-info tooltip-left" data-tip={user?.uid && user?.displayName}>
+                        <div className="w-12 rounded-full ">
+                            {
+                                user?.uid ? <>
+                                    <img src={user.photoURL} alt='userImage' />
+                                </>
+                                    :
+                                    <>
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSegCgK5aWTTuv_K5TPd10DcJxphcBTBct6R170EamgcCOcYs7LGKVy7ybRc-MCwOcHljg&usqp=CAU" alt='noUser' />
+                                    </>
+                            }
+
                         </div>
                     </label>
                     <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
