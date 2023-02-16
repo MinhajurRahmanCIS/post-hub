@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CgMenuGridR } from "react-icons/cg";
+import { AuthContext } from '../../context/AuthProvider';
 const Navbar = () => {
+
+    const { logOut, user } = useContext(AuthContext);
+
+    const handelLogout = () => {
+        logOut()
+            .then(() => { })
+            .catch(err => console.error(err));
+    }
 
     const menu =
         <>
@@ -11,11 +20,15 @@ const Navbar = () => {
             <li><Link to='/about'>About</Link></li>
         </>
     const userAccount =
-        <>
-            <li><Link to='/register'>Sign Up</Link></li>
-            <li><Link to='/login'>Log in</Link></li>
-            <li><Link>Logout</Link></li>
+
+        user?.uid ? <>
+            <li><Link onClick={handelLogout}>Logout</Link></li>
         </>
+            :
+            <>
+                <li><Link to='/register'>Sign Up</Link></li>
+                <li><Link to='/login'>Log in</Link></li>
+            </>
 
     return (
         <div className="navbar bg-base-200">
@@ -43,7 +56,7 @@ const Navbar = () => {
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSegCgK5aWTTuv_K5TPd10DcJxphcBTBct6R170EamgcCOcYs7LGKVy7ybRc-MCwOcHljg&usqp=CAU" alt=''/>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSegCgK5aWTTuv_K5TPd10DcJxphcBTBct6R170EamgcCOcYs7LGKVy7ybRc-MCwOcHljg&usqp=CAU" alt='' />
                         </div>
                     </label>
                     <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
