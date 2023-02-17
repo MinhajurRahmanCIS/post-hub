@@ -15,14 +15,17 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
+                loader: async () => fetch('http://localhost:5000/topPosts'),
                 element: <Home></Home>,
             },
             {
                 path: '/media',
+                loader: async () => fetch('http://localhost:5000/posts'),
                 element: <Media></Media>,
             },
             {
                 path: '/about',
+                loader: async () => fetch('http://localhost:5000/userProfile'),
                 element: <PrivateRoute><About></About></PrivateRoute>,
             },
             {

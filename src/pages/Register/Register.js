@@ -12,9 +12,11 @@ const Register = () => {
         const name = form.name.value;
         const img = form.img.value;
         const email = form.email.value;
+        const address = form.address.value;
+        const university = form.university.value;
         const password = form.password.value;
 
-        console.log(name, email, password);
+        console.log(name, email, password, address, university);
 
         if(password.length < 6 ){
             alert('Password should be 6 or longer');
@@ -32,6 +34,29 @@ const Register = () => {
             .catch(err => console.error(err))
             console.log(user);
             form.reset();
+
+            const userProfile = {
+                name: name,
+                email: email,
+                address: address,
+                university: university,
+                img: img
+            }
+
+            fetch('http://localhost:5000/userProfile', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(userProfile)
+            })
+            .then(res => res.json())
+            .then(result =>{
+                    alert('success');
+                    form.reset();
+            })
+            
+            
         })
         .catch(err => 
             console.error(err));
@@ -45,6 +70,9 @@ const Register = () => {
         })
         .catch(error => console.log(error))
     }
+
+
+
     return (
         <div>
             <div className="hero min-h-screen">
@@ -72,6 +100,18 @@ const Register = () => {
                                     <span className="label-text">Email</span>
                                 </label>
                                 <input name='email' type="email" placeholder="Email address" className="input input-bordered" required />
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">University</span>
+                                </label>
+                                <input name='university' type="text" placeholder="University" className="input input-bordered" required />
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Address</span>
+                                </label>
+                                <input name='address' type="text" placeholder="Address" className="input input-bordered" required />
                             </div>
                             <div className="form-control">
                                 <label className="label">
