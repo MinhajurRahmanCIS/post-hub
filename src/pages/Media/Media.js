@@ -32,7 +32,7 @@ const Media = () => {
                             <p>{post.postDescription}</p>
                             <p className='text-xs'>Posted by <span className='font-bold'>{post.name}</span></p>
                             <div className="card-actions justify-end">
-                                <Link className="btn bg-indigo-600 border-none">Details</Link>
+                                <Link to={`/details/${post._id}`} className="btn bg-indigo-600 border-none">Details</Link>
                             </div>
                         </div>
                     </div>

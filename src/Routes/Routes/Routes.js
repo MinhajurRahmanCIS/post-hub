@@ -3,6 +3,7 @@ import Main from "../../layout/Main";
 import About from "../../pages/About/About";
 import Home from "../../pages/Home/Home/Home";
 import Login from "../../pages/Login/Login";
+import Details from "../../pages/Media/Details";
 import Media from "../../pages/Media/Media";
 import Message from "../../pages/Message/Message";
 import Register from "../../pages/Register/Register";
@@ -39,6 +40,11 @@ const router = createBrowserRouter([
             {
                 path: '/register',
                 element: <Register></Register>,
+            },
+            {
+                path: '/details/:id',
+                loader: ({params})=> fetch(`http://localhost:5000/posts/${params.id}`),
+                element: <Details></Details>
             },
         ]
 
