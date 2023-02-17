@@ -6,6 +6,7 @@ import Login from "../../pages/Login/Login";
 import Media from "../../pages/Media/Media";
 import Message from "../../pages/Message/Message";
 import Register from "../../pages/Register/Register";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -22,11 +23,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/about',
-                element: <About></About>,
+                element: <PrivateRoute><About></About></PrivateRoute>,
             },
             {
                 path: '/message',
-                element: <Message></Message>,
+                element: <PrivateRoute><Message></Message></PrivateRoute>,
             },
             {
                 path: '/login',
