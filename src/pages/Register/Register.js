@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider';
 import { BsGoogle } from 'react-icons/bs';
 const Register = () => {
 
     const {createUser, updateUser, signInWithGoogle} = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname || '/';
 
     const handelRegister = event => {
         event.preventDefault();
@@ -33,7 +36,7 @@ const Register = () => {
             .then(() => {})
             .catch(err => console.error(err))
             console.log(user);
-            form.reset();
+            
 
             const userProfile = {
                 name: name,
@@ -54,12 +57,14 @@ const Register = () => {
             .then(result =>{
                     alert('success');
                     form.reset();
+                    navigate(from, { replace: true });
             })
             
             
         })
         .catch(err => 
             console.error(err));
+            
     }
 
     const handelGoogleLogin = () => {
@@ -67,25 +72,11 @@ const Register = () => {
         .then(result => {
             const user = result.user;
             console.log(user);
+            navigate(from, { replace: true });
         })
         .catch(error => console.log(error))
 
-        const uInfo = {
-            email: uInfo.email,
-            name: uInfo.displayName
-        }
-        
-        fetch('http://localhost:5000/userProfile', {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(uInfo)
-            })
-            .then(res => res.json())
-            .then(result =>{
-                    alert('success');
-            })
+
     }
 
 
