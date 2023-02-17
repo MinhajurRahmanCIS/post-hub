@@ -28,7 +28,7 @@ const Media = () => {
                         <figure><img className='h-[300px]' src={post.img} alt="Shoes" /></figure>
                         <div className="card-body">
                             <button onClick={() => handleLikeClick(posts.email)}>{liked ? <><span className='text-red-500 text-2xl'><BsSuitHeartFill></BsSuitHeartFill></span></> : <span className='text-2xl'><><BsSuitHeart></BsSuitHeart></></span>}</button>
-                            <p className='text-sm font-semibold ml-2'>{liked}</p>
+                            <p className='text-2xl font-semibold ml-2'>{liked}</p>
                             <p>{post.postDescription}</p>
                             <p className='text-xs'>Posted by <span className='font-bold'>{post.name}</span></p>
                             <div className="card-actions justify-end">

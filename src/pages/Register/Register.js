@@ -69,7 +69,25 @@ const Register = () => {
             console.log(user);
         })
         .catch(error => console.log(error))
+
+        const uInfo = {
+            email: uInfo.email,
+            name: uInfo.displayName
+        }
+        
+        fetch('http://localhost:5000/userProfile', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(uInfo)
+            })
+            .then(res => res.json())
+            .then(result =>{
+                    alert('success');
+            })
     }
+
 
 
 
