@@ -34,7 +34,7 @@ const Post = () => {
                     }
                     console.log(postInfo)
 
-                    fetch('http://localhost:5000/posts', {
+                    fetch('https://post-hub-server.vercel.app/posts', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

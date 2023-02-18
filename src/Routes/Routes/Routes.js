@@ -16,17 +16,17 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                loader: async () => fetch('http://localhost:5000/topPosts'),
+                loader: async () => fetch('https://post-hub-server.vercel.app/topPosts'),
                 element: <Home></Home>,
             },
             {
                 path: '/media',
-                loader: async () => fetch('http://localhost:5000/posts'),
+                loader: async () => fetch('https://post-hub-server.vercel.app/posts'),
                 element: <Media></Media>,
             },
             {
                 path: '/about',
-                loader: async () => fetch('http://localhost:5000/userProfile'),
+                loader: async () => fetch('https://post-hub-server.vercel.app/userProfile'),
                 element: <PrivateRoute><About></About></PrivateRoute>,
             },
             {
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/details/:id',
-                loader: ({params})=> fetch(`http://localhost:5000/posts/${params.id}`),
+                loader: ({params})=> fetch(`https://post-hub-server.vercel.app/posts/${params.id}`),
                 element: <Details></Details>
             },
         ]

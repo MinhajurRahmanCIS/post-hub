@@ -46,7 +46,7 @@ const Register = () => {
                 img: img
             }
 
-            fetch('http://localhost:5000/userProfile', {
+            fetch('https://post-hub-server.vercel.app/userProfile', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'

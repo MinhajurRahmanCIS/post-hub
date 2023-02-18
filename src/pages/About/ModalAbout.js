@@ -20,7 +20,7 @@ const ModalAbout = ({userInfo}) => {
             university: university
         }
 
-        fetch(`http://localhost:5000/userProfile/${userInfo[0]._id}`, {
+        fetch(`https://post-hub-server.vercel.app/userProfile/${userInfo[0]._id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
