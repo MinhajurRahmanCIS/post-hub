@@ -35,17 +35,17 @@ const Post = () => {
                     console.log(postInfo)
 
                     fetch('https://post-hub-server.vercel.app/posts', {
-                    method: 'POST',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify(postInfo)
-                })
-                .then(res => res.json())
-                .then(result =>{
-                        alert('success');
-                        form.reset();
-                })
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(postInfo)
+                    })
+                        .then(res => res.json())
+                        .then(result => {
+                            alert('success');
+                            form.reset();
+                        })
                 }
             })
 

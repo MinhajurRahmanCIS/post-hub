@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs';
 import { AuthContext } from '../context/AuthProvider';
@@ -6,6 +6,8 @@ const Media = () => {
     const posts = useLoaderData();
     const { user } = useContext(AuthContext);
     const [likes, setLikes] = useState(0);
+
+    const [getPostId, setGetPostId] = useState();
 
     // State variable to keep track of whether the button is currently liked
     const [liked, setLiked] = useState(false);
@@ -18,6 +20,47 @@ const Media = () => {
             setLikes(likes + 1);
         }
         setLiked(!liked);
+    }
+    console.log(user)
+
+    const getId = (id) => {
+        setGetPostId(id);
+    }
+
+    const handelComment = event => {
+        event.preventDefault();
+        const form = event.target;
+        const comment = form.comment.value;
+        if (comment.length < 2) {
+            alert('Write at least 2 words');
+        }
+        else {
+
+            const comments = {
+                postId: getPostId,
+                userComment: comment,
+                userEmail: user.email,
+                userName: user.displayName,
+                userImg: user.photoURL
+            }
+
+            fetch('https://post-hub-server.vercel.app/comments', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(comments)
+            })
+                .then(res => res.json())
+                .then(result => {
+                    alert('success');
+                    form.reset();
+                })
+
+        }
+
+
+
     }
 
     return (
@@ -39,7 +82,12 @@ const Media = () => {
                     {
                         user?.uid ?
                             <>
-                                <textarea placeholder="Write a comment..." className="textarea textarea-bordered textarea-sm mt-3" ></textarea>
+                                <form onSubmit={handelComment} className='w-full'>
+                                    <textarea name='comment' placeholder="Write a comment..." className="textarea textarea-bordered textarea-sm w-full mt-3" ></textarea>
+
+                                    <button onClick={() => getId(post._id)} className='btn' type="submit">Comment</button>
+                                </form>
+
 
                             </>
                             :
