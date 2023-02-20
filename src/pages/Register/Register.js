@@ -1,13 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider';
 import { BsGoogle } from 'react-icons/bs';
 const Register = () => {
-
-    const {createUser, updateUser, signInWithGoogle} = useContext(AuthContext);
+    const  [alreadyUser, setAlreadyUser]  = useState([]);
+    const { createUser, updateUser, signInWithGoogle } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from?.pathname || '/';
+
+    useEffect(() => {
+        fetch('https://post-hub-server.vercel.app/userProfile')
+            .then(res => res.json())
+            .then(uEmail => {
+                setAlreadyUser(uEmail);
+            })
+    }, []);
 
     const handelRegister = event => {
         event.preventDefault();
@@ -21,60 +29,85 @@ const Register = () => {
 
         console.log(name, email, password, address, university);
 
-        if(password.length < 6 ){
+        if (password.length < 6) {
             alert('Password should be 6 or longer');
         }
 
         createUser(email, password)
-        .then(result => {
-            const user = result.user;
-            const userInfo = {
-                displayName: name,
-                photoURL: img
-            }
-            updateUser(userInfo)
-            .then(() => {})
-            .catch(err => console.error(err))
-            console.log(user);
-            
+            .then(result => {
+                const user = result.user;
+                const userInfo = {
+                    displayName: name,
+                    photoURL: img
+                }
+                updateUser(userInfo)
+                    .then(() => { })
+                    .catch(err => console.error(err))
+                console.log(user);
 
-            const userProfile = {
-                name: name,
-                email: email,
-                address: address,
-                university: university,
-                img: img
-            }
 
-            fetch('https://post-hub-server.vercel.app/userProfile', {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(userProfile)
+                const userProfile = {
+                    name: name,
+                    email: email,
+                    address: address,
+                    university: university,
+                    img: img
+                }
+
+                fetch('https://post-hub-server.vercel.app/userProfile', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(userProfile)
+                })
+                    .then(res => res.json())
+                    .then(result => {
+                        alert('success');
+                        form.reset();
+                        navigate(from, { replace: true });
+                    })
+
+
             })
-            .then(res => res.json())
-            .then(result =>{
-                    alert('success');
-                    form.reset();
-                    navigate(from, { replace: true });
-            })
-            
-            
-        })
-        .catch(err => 
-            console.error(err));
-            
+            .catch(err =>
+                console.error(err));
+
     }
 
     const handelGoogleLogin = () => {
         signInWithGoogle()
-        .then(result => {
-            const user = result.user;
-            console.log(user);
-            navigate(from, { replace: true });
-        })
-        .catch(error => console.log(error))
+            .then(result => {
+                const user = result.user;
+                let findUser = alreadyUser.find(u => u.email === user.email);
+                console.log(findUser)
+                if (findUser) {
+                    console.log('')
+                }
+                else {
+                    const userProfile = {
+                        name: user.displayName,
+                        email: user.email,
+                        img: user.photoURL
+                    }
+
+                    fetch('https://post-hub-server.vercel.app/userProfile', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(userProfile)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            alert('success');
+                        })
+
+                }
+
+                navigate(from, { replace: true });
+            })
+            .catch(error => console.log(error))
 
 
     }
@@ -91,7 +124,7 @@ const Register = () => {
                     </div>
                     <form onSubmit={handelRegister} className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                         <div className="card-body">
-                        <h1 className='text-4xl font-bold'>Register</h1>
+                            <h1 className='text-4xl font-bold'>Register</h1>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Name</span>

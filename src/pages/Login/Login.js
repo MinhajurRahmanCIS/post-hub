@@ -1,13 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider';
 import { BsGoogle } from 'react-icons/bs';
 const Login = () => {
-    
+    const  [alreadyUser, setAlreadyUser]  = useState([]);
     const {login, signInWithGoogle} = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from?.pathname || '/';
+
+    useEffect(() => {
+        fetch('https://post-hub-server.vercel.app/userProfile')
+            .then(res => res.json())
+            .then(uEmail => {
+                setAlreadyUser(uEmail);
+            })
+    }, []);
 
     const handelLogin = event => {
         event.preventDefault();
@@ -30,7 +38,31 @@ const Login = () => {
         signInWithGoogle()
         .then(result => {
             const user = result.user;
-            console.log(user);
+            let findUser = alreadyUser.find(u => u.email === user.email);
+                console.log(findUser)
+                if (findUser) {
+                    console.log('')
+                }
+                else {
+                    const userProfile = {
+                        name: user.displayName,
+                        email: user.email,
+                        img: user.photoURL
+                    }
+
+                    fetch('https://post-hub-server.vercel.app/userProfile', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(userProfile)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            alert('success');
+                        })
+
+                }
             navigate(from, { replace: true });
         })
         .catch(error => console.log(error))

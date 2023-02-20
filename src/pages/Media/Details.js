@@ -45,7 +45,7 @@ const Details = () => {
                                 <div className='grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-3 gap-5'>
                                     {
                                         userGiveComment.map((uc, i) =>
-                                            <div className="card bg-base-100 shadow-xl mt-5">
+                                            <div className="card bg-base-100 shadow-xl mt-5 border border-gray-300">
                                                 <div key={i} className="card-body">
                                                     <div className="avatar justify-start">
                                                         <div className="w-12 rounded-full">

@@ -2,9 +2,9 @@ import React, { useContext }  from 'react';
 import { AuthContext } from '../context/AuthProvider';
 
 const ModalAbout = ({userInfo}) => {
-    console.log(userInfo[0]._id)
     const { user, updateUser } = useContext(AuthContext);
     let userProfile = userInfo.find(u => u.email === user.email);
+    const userload =  userProfile._id;
     const handelUpdate = event => {
         event.preventDefault();
         const form = event.target;
@@ -20,7 +20,7 @@ const ModalAbout = ({userInfo}) => {
             university: university
         }
 
-        fetch(`https://post-hub-server.vercel.app/userProfile/${userInfo[0]._id}`, {
+        fetch(`https://post-hub-server.vercel.app/userProfile/${userload}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
